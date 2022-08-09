@@ -1,1 +1,17 @@
-<p>astro-picture detail works!</p>
+<div class="card text-center mx-auto">
+  <div *ngIf="responseCloud">
+    <div class="card-header">
+      <h1>{{responseCloud.data.title}}</h1>
+    </div>
+    <div class="card-body">
+      <h3>{{todayString | date }}</h3>
+      <div [ngSwitch]="responseCloud.data.media_type">
+        <div *ngSwitchCase="'image'">
+          <img class="rounded mx-auto d-block" src={{responseCloud.data.url}} alt="Image">
+        </div>
+      </div>
+      <textarea class="mt-4" rows="15" cols="100" [(ngModel)]="responseCloud.data.explanation"></textarea>
+    </div>
+  </div>
+</div>
+

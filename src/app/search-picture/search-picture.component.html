@@ -1,1 +1,18 @@
-<p>search-picture works!</p>
+<div class="card text-center mx-auto">
+  <div class="card-header">
+    <h1>{{responseCloud.data.title}}</h1>
+  </div>
+  <div class="card-body">
+    <div class="d-flex justify-content-around">
+      <h3>{{selectedDate | date }}</h3>
+      <input type="date" value={{currentDate}} [ngModel]="selectedDate" max={{currentDate}}
+        (ngModelChange)="onSelect($event)" />
+    </div>
+    <div [ngSwitch]="responseCloud.data.media_type">
+      <div *ngSwitchCase="'image'">
+        <img class="rounded mx-auto d-block" src={{responseCloud.data.url}} alt="Image">
+      </div>
+    </div>
+    <textarea class="mt-4" rows="15" cols="100" [(ngModel)]="responseCloud.data.explanation"></textarea>
+  </div>
+</div>

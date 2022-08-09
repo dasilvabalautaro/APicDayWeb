@@ -3,8 +3,14 @@
     <h1>Picture of the day</h1>
   </div>
   <div class="card-body">
-    <h2>{{picDay.title | uppercase}}</h2>
-    <img class="card-img" src={{picDay.hdurl}} alt="Image">
+    <h2>{{responseCloud.data.title | uppercase}}</h2>
+    <h3>{{todayString | date }}</h3>
+    <div [ngSwitch]="responseCloud.data.media_type">
+      <div class=""></div>
+      <div *ngSwitchCase="'image'">
+        <img class="card-img" src={{pathImage}} alt="Image">
+      </div>
+    </div>
     <p class="card text-end">Image Credit: NASA</p>
   </div>
   <div class="card-footer text-muted">
