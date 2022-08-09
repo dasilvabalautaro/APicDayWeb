@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 import { AstroDetailComponent } from './astro-detail/astro-detail.component';
 import { AstroPictureComponent } from './astro-picture/astro-picture.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -22,9 +23,11 @@ import { PrivacyComponent } from './privacy/privacy.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [FormsModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

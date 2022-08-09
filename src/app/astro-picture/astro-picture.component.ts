@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AstroPicture } from '../model/astro-picture';
+import { ResponseCloud } from '../model/response-cloud';
+import { PictureService } from '../services/picture.service';
+import { ServiceSharedService } from '../service-shared.service';
 
 @Component({
   selector: 'app-astro-picture',
@@ -7,21 +10,44 @@ import { AstroPicture } from '../model/astro-picture';
   styleUrls: ['./astro-picture.component.css']
 })
 export class AstroPictureComponent implements OnInit {
+
   picDay: AstroPicture = {
-    id: 1,
-    date: "2022-07-17",
-    explanation: "dfgg dfgdgdf fdgdfg dfgdfg dfgdfg dfgdfg dfgdfg",
-    hdurl: "https://www.nasa.gov/sites/default/files/thumbnails/image/cena_lic-lp-nature-cropped.jpg",
-    mediaType: "image",
-    serviceVersion: "v1",
-    title: "A Supernova's Shockwaves",
-    url: "http://short",
-    base64: "string"
+    id: 0,
+    date: "",
+    explanation: "",
+    hdurl: "",
+    media_type: "",
+    serviceVersion: "",
+    title: "",
+    url: "",
+    base64: ""
   }
 
-  constructor() { }
+  responseCloud: ResponseCloud = {
+    success: false,
+    data: this.picDay
+  }
+
+  errorImage = 'https://i.imgur.com/XkU4Ajf.png';
+  defaultImage = "https://www.nasa.gov/sites/default/files/thumbnails/image/cena_lic-lp-nature-cropped.jpg";
+  pathImage = "";
+  todayString: string = new Date().toDateString();
+  todayDate: string = new Date().toISOString();
+  arrayDate = this.todayDate.split('T');
+
+  constructor(public pictureService: PictureService, 
+    public serviceShared: ServiceSharedService) { }
 
   ngOnInit(): void {
+
+    this.pictureService.getPicOfDay(this.arrayDate[0])
+      .subscribe(response => {
+        this.responseCloud = response;
+        this.serviceShared.setResponseCloud(this.responseCloud);
+        this.pathImage = this.responseCloud.data.hdurl;
+      })
+    
+    this.serviceShared.setDateCurrent(this.arrayDate[0]);
   }
 
 }

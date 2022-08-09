@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'detail',
     component: AstroDetailComponent
-  },
+  },  
   {
     path: '',
     redirectTo: '/picofday',

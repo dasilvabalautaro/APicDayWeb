@@ -3,7 +3,7 @@ export interface AstroPicture {
   date: string,
   explanation: string,
   hdurl: string,
-  mediaType: string,
+  media_type: string,
   serviceVersion: string,
   title: string,
   url: string,
