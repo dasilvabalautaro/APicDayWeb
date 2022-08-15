@@ -1,5 +1,5 @@
-<div class="card text-center mx-auto">
-  <div class="card-header">
+<div class="card mx-auto">
+  <div class="card-header text-center">
     <h1>{{responseCloud.data.title}}</h1>
   </div>
   <div class="card-body">
@@ -8,11 +8,18 @@
       <input type="date" value={{currentDate}} [ngModel]="selectedDate" max={{currentDate}}
         (ngModelChange)="onSelect($event)" />
     </div>
-    <div [ngSwitch]="responseCloud.data.media_type">
+    <div class="text-center" [ngSwitch]="responseCloud.data.media_type">
       <div *ngSwitchCase="'image'">
-        <img class="rounded mx-auto d-block" src={{responseCloud.data.url}} alt="Image">
+        <img class="card-img" src={{responseCloud.data.url}} alt="Image">
+      </div>
+      <div *ngSwitchCase="'video'">
+        <div class="embed-responsive embed-responsive-21by9">
+          <iframe class="embed-responsive-item mt-4" [src]="urlSafe" allowfullscreen></iframe> 
+        </div>
       </div>
     </div>
-    <textarea class="mt-4" rows="15" cols="100" [(ngModel)]="responseCloud.data.explanation"></textarea>
+    <div class="mt-4">
+      <p class="card-text p-3">{{responseCloud.data.explanation}}</p>
+    </div>
   </div>
 </div>
