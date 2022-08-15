@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AstroPicture } from '../model/astro-picture';
 import { ResponseCloud } from '../model/response-cloud';
 import { PictureService } from '../services/picture.service';
@@ -10,7 +11,7 @@ import { ServiceSharedService } from '../service-shared.service';
   styleUrls: ['./astro-picture.component.css']
 })
 export class AstroPictureComponent implements OnInit {
-
+  urlSafe?: SafeResourceUrl;
   picDay: AstroPicture = {
     id: 0,
     date: "",
@@ -36,7 +37,8 @@ export class AstroPictureComponent implements OnInit {
   arrayDate = this.todayDate.split('T');
 
   constructor(public pictureService: PictureService, 
-    public serviceShared: ServiceSharedService) { }
+    public serviceShared: ServiceSharedService, 
+    public sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
 
@@ -45,6 +47,8 @@ export class AstroPictureComponent implements OnInit {
         this.responseCloud = response;
         this.serviceShared.setResponseCloud(this.responseCloud);
         this.pathImage = this.responseCloud.data.hdurl;
+        this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(
+          this.responseCloud.data.url);
       })
     
     this.serviceShared.setDateCurrent(this.arrayDate[0]);

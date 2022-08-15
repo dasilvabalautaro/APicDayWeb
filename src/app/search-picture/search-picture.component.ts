@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AstroPicture } from '../model/astro-picture';
 import { ResponseCloud } from '../model/response-cloud';
 import { PictureService } from '../services/picture.service';
@@ -12,7 +13,8 @@ export class SearchPictureComponent implements OnInit {
   todayDate: string = new Date().toISOString();
   arrayDate = this.todayDate.split('T');
   selectedDate?: string;
-  currentDate?: string; 
+  currentDate?: string;
+  urlSafe?: SafeResourceUrl;
 
   picDay: AstroPicture = {
     id: 0,
@@ -31,7 +33,8 @@ export class SearchPictureComponent implements OnInit {
     data: this.picDay
   }
 
-  constructor(public pictureService: PictureService) { }
+  constructor(public pictureService: PictureService, 
+    public sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.currentDate = this.arrayDate[0];
@@ -42,6 +45,8 @@ export class SearchPictureComponent implements OnInit {
     this.pictureService.getPicOfDay(this.selectedDate)
       .subscribe(response => {
         this.responseCloud = response;
+        this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(
+          this.responseCloud.data.url);
       })
   }
 }
