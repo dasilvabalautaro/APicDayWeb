@@ -7,11 +7,11 @@
     <h3 class="text-center">{{todayString | date }}</h3>
     <div [ngSwitch]="responseCloud.data.media_type">
       <div *ngSwitchCase="'image'">
-        <img class="card-img" src={{pathImage}} alt="Image">
+        <img class="card-img" [src]="pathImage" alt="Image">
       </div>
       <div *ngSwitchCase="'video'">
-        <div class="embed-responsive embed-responsive-21by9">
-          <iframe class="embed-responsive-item mt-4" [src]="urlSafe" allowfullscreen></iframe> 
+        <div class="embed-responsive embed-responsive-21by9 mt-4">
+          <iframe class="embed-responsive-item" [src]="urlSafe" allowfullscreen></iframe> 
         </div>
       </div>
     </div>
