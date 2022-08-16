@@ -55,3 +55,6 @@ export class AstroPictureComponent implements OnInit {
   }
 
 }
+
+// embed-responsive embed-responsive-21by9
+// class="embed-responsive-item mt-4"
